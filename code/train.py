@@ -119,6 +119,8 @@ def train(**kwargs):
     epoch_save = 0
     best_metric = 0
     lr_change = 0
+    ader=0
+    aderN=60
 
     ###### Start Training ######
     for e in range(opt.epoch):
@@ -159,6 +161,11 @@ def train(**kwargs):
         elif train_loss > 0.012:
             pass_flag = True
             
+        ader+=1
+        if ader%aderN == aderN-1:
+            pass_flag=False
+            os.system('cp -r /data1/lqh/ltx/code/RPLHR-CT/model /data1/lqh/ltx/out/model')
+             
         if pass_flag:
             print('epoch %s, train_loss: %.4f' % (tmp_epoch, train_loss))
             continue
